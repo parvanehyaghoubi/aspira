@@ -1,0 +1,238 @@
+[
+  {
+    "id": "1",
+    "title": "Frontend Developer Intern",
+    "organization": "Kabul Tech Community",
+    "category": "Internship",
+    "location": "Kabul",
+    "type": "Remote",
+    "deadline": "2026-08-20",
+    "description": "A beginner-friendly internship for students who know React and Next.js. You will work with a small team building real products for local NGOs.",
+    "requirements": [
+      "Basic React",
+      "HTML/CSS",
+      "GitHub"
+    ],
+    "applyLink": "https://example.com/apply/frontend-intern",
+    "tags": [
+      "React",
+      "Next.js",
+      "Internship"
+    ],
+    "featured": true,
+    "status": "approved",
+    "createdAt": "2026-06-01T08:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "title": "Women in Tech Scholarship",
+    "organization": "Global Learning Foundation",
+    "category": "Scholarship",
+    "location": "Online",
+    "type": "Remote",
+    "deadline": "2026-09-10",
+    "description": "A scholarship for women who want to study technology online, covering course fees and a laptop stipend for the first 50 selected applicants.",
+    "requirements": [
+      "Basic English",
+      "Motivation letter",
+      "Internet access"
+    ],
+    "applyLink": "https://example.com/apply/women-in-tech",
+    "tags": [
+      "Scholarship",
+      "Women",
+      "Online"
+    ],
+    "featured": true,
+    "status": "approved",
+    "createdAt": "2026-06-02T08:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "Junior Data Entry Officer",
+    "organization": "Herat Relief Network",
+    "category": "Job",
+    "location": "Herat",
+    "type": "On-site",
+    "deadline": "2026-07-15",
+    "description": "Support the field office with accurate data entry for humanitarian programs. Training provided in the first two weeks.",
+    "requirements": [
+      "MS Excel",
+      "Dari fluency",
+      "Attention to detail"
+    ],
+    "applyLink": "https://example.com/apply/data-entry",
+    "tags": [
+      "Data Entry",
+      "NGO",
+      "Entry Level"
+    ],
+    "featured": false,
+    "status": "approved",
+    "createdAt": "2026-06-03T08:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "title": "Free UI/UX Design Course",
+    "organization": "Code to Inspire",
+    "category": "Online Course",
+    "location": "Online",
+    "type": "Remote",
+    "deadline": "2026-12-01",
+    "description": "A self-paced course covering Figma, design systems, and usability testing, ending with a certificate and a portfolio project.",
+    "requirements": [
+      "A laptop",
+      "Figma account",
+      "5 hrs/week"
+    ],
+    "applyLink": "https://example.com/apply/uiux-course",
+    "tags": [
+      "Design",
+      "Figma",
+      "Free"
+    ],
+    "featured": false,
+    "status": "approved",
+    "createdAt": "2026-06-04T08:00:00.000Z"
+  },
+  {
+    "id": "5",
+    "title": "Remote Customer Support Agent",
+    "organization": "Bamyan Outsourcing Hub",
+    "category": "Remote Work",
+    "location": "Online",
+    "type": "Remote",
+    "deadline": "2026-07-05",
+    "description": "Handle English-language customer chats for an international client. Flexible evening shifts available.",
+    "requirements": [
+      "English B2+",
+      "Stable internet",
+      "Own laptop"
+    ],
+    "applyLink": "https://example.com/apply/customer-support",
+    "tags": [
+      "Remote",
+      "Customer Service",
+      "Flexible"
+    ],
+    "featured": false,
+    "status": "approved",
+    "createdAt": "2026-06-05T08:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "title": "Six-Week Digital Marketing Bootcamp",
+    "organization": "Mazar Youth Initiative",
+    "category": "Training Program",
+    "location": "Mazar-e-Sharif",
+    "type": "Hybrid",
+    "deadline": "2026-07-25",
+    "description": "Hands-on training in social media marketing, SEO basics, and content writing, with two days a week on-site and the rest online.",
+    "requirements": [
+      "Smartphone",
+      "Basic computer literacy"
+    ],
+    "applyLink": "https://example.com/apply/marketing-bootcamp",
+    "tags": [
+      "Marketing",
+      "Bootcamp",
+      "Beginner"
+    ],
+    "featured": true,
+    "status": "approved",
+    "createdAt": "2026-06-06T08:00:00.000Z"
+  },
+  {
+    "id": "7",
+    "title": "Community Health Volunteer",
+    "organization": "Nangarhar Health Outreach",
+    "category": "Volunteer Work",
+    "location": "Jalalabad",
+    "type": "On-site",
+    "deadline": "2026-08-01",
+    "description": "Join a volunteer team raising awareness about maternal health in rural communities. Transport and lunch provided.",
+    "requirements": [
+      "Pashto or Dari fluency",
+      "Willingness to travel locally"
+    ],
+    "applyLink": "https://example.com/apply/health-volunteer",
+    "tags": [
+      "Health",
+      "Volunteer",
+      "Community"
+    ],
+    "featured": false,
+    "status": "approved",
+    "createdAt": "2026-06-07T08:00:00.000Z"
+  },
+  {
+    "id": "8",
+    "title": "Graduate Trainee – Finance",
+    "organization": "Afghan Microfinance Bank",
+    "category": "Job",
+    "location": "Kabul",
+    "type": "On-site",
+    "deadline": "2026-09-30",
+    "description": "A one-year graduate program rotating across credit, operations, and risk teams, with mentorship from senior bankers.",
+    "requirements": [
+      "Bachelor's in Finance/Economics",
+      "MS Excel",
+      "Analytical mindset"
+    ],
+    "applyLink": "https://example.com/apply/finance-trainee",
+    "tags": [
+      "Finance",
+      "Graduate Program"
+    ],
+    "featured": false,
+    "status": "approved",
+    "createdAt": "2026-06-08T08:00:00.000Z"
+  },
+  {
+    "id": "9",
+    "title": "Online English Teaching Fellowship",
+    "organization": "Lapis Learning Circle",
+    "category": "Online Course",
+    "location": "Online",
+    "type": "Remote",
+    "deadline": "2026-07-12",
+    "description": "Teach conversational English to younger students two evenings a week while receiving teacher-training sessions yourself.",
+    "requirements": [
+      "English C1",
+      "Reliable internet",
+      "Patience with beginners"
+    ],
+    "applyLink": "https://example.com/apply/english-fellowship",
+    "tags": [
+      "Teaching",
+      "English",
+      "Fellowship"
+    ],
+    "featured": false,
+    "status": "approved",
+    "createdAt": "2026-06-09T08:00:00.000Z"
+  },
+  {
+    "id": "10",
+    "title": "Mobile App Development Internship",
+    "organization": "Kandahar Software House",
+    "category": "Internship",
+    "location": "Kandahar",
+    "type": "Hybrid",
+    "deadline": "2026-08-05",
+    "description": "Build cross-platform mobile features under the guidance of a senior engineer. Stipend provided after the first month.",
+    "requirements": [
+      "Basic JavaScript",
+      "Curiosity about mobile dev"
+    ],
+    "applyLink": "https://example.com/apply/mobile-intern",
+    "tags": [
+      "Mobile",
+      "React Native",
+      "Internship"
+    ],
+    "featured": false,
+    "status": "pending",
+    "createdAt": "2026-06-10T08:00:00.000Z"
+  }
+]
