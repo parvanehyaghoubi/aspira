@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/parvanehyaghoubi/aspira/blob/main/public/images/aspira_logo.png">
+    <img src="https://raw.githubusercontent.com/parvanehyaghoubi/aspira/main/public/images/aspira_logo.png" height=200px>
+</p>
+
+
 # Aspira — Opportunity Finder Platform
 
 **Project Description:** Aspira is a modern opportunity finder platform that helps Afghan youth discover jobs, internships, scholarships, online courses, remote work, and skill-building opportunities. All in one place, with search, filters, saving, and a community submission flow.
