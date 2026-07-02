@@ -3,7 +3,7 @@ import { getOpportunities, createOpportunity } from "@/lib/store";
 import { opportunitySchema } from "@/lib/validation";
 
 export async function GET() {
-    const items = getOpportunities();
+    const items = await getOpportunities();
     return NextResponse.json(items);
 }
 
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
         );
     }
     const { requirements, tags, ...rest } = parsed.data;
-    const created = createOpportunity({
+    const created = await createOpportunity({
         ...rest,
         requirements: requirements.split(",").map((r) => r.trim()).filter(Boolean),
         tags: (tags ?? "").split(",").map((t) => t.trim()).filter(Boolean),
