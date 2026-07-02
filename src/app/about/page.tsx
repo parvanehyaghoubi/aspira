@@ -14,14 +14,14 @@ export default function AboutPage() {
                 {t("about_title")}
             </h1>
             <p className="mt-4 text-base leading-relaxed text-lapis-700 dark:text-sand-200">
-                Opportunities for Afghan youth are out there — but they are scattered
+                Opportunities for Afghan youth are out there, but they are scattered
                 across dozens of social media pages, private groups, and websites.
                 Aspira brings jobs, internships, scholarships, online
                 courses, remote work and training programs into a single, easy place
                 to search, save, and apply.
             </p>
             <p className="mt-3 text-base leading-relaxed text-lapis-700 dark:text-sand-200">
-                We built this with students, fresh graduates, job seekers and women
+                I built this with students, fresh graduates, job seekers and women
                 looking for remote work in mind — and with organizations that want a
                 simple way to share opportunities with the people who need them.
             </p>
@@ -38,7 +38,7 @@ export default function AboutPage() {
                     <Globe2 size={20} className="mx-auto text-saffron-600" />
                     <p className="mt-2 text-sm font-semibold text-lapis-900 dark:text-sand-50">Open to everyone</p>
                     <p className="mt-1 text-xs text-lapis-500 dark:text-sand-300">
-                        Available in English, Dari and Pashto.
+                        Available in English, Dari, Arabic, German, French, Japanese and Korean.
                     </p>
                 </div>
                 <div className="card-surface p-5 text-center">
@@ -51,8 +51,8 @@ export default function AboutPage() {
             </div>
 
             <p className="mt-8 rounded-xl border border-dashed border-lapis-200 p-4 text-xs text-lapis-500 dark:border-lapis-700 dark:text-sand-300">
-                {t("demo_data_notice")} This project was built as a final capstone
-                for the Code to Inspire web development course.
+                Aspira was developed to provide a modern platform 
+                for discovering educational and career opportunities.
             </p>
         </div>
     );
