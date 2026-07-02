@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 config.autoAddCss = false;
 
 export const metadata: Metadata = {
-    title: "Aspira — Opportunity Finder",
+    title: "Aspira",
     description:
         "Aspira is an opportunity finder platform helping Afghan youth discover jobs, internships, scholarships, online courses, remote work and training programs in one place.",
 };
