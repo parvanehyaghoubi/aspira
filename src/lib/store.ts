@@ -1,32 +1,32 @@
-import fs from "fs";
-import path from "path";
+import { kv } from "@vercel/kv";
 import type { Opportunity, OpportunityInput } from "@/types";
 
-const DATA_PATH = path.join(process.cwd(), "data", "opportunities.json");
+const KEY = "opportunities";
 
-function readAll(): Opportunity[] {
+async function readAll(): Promise<Opportunity[]> {
     try {
-        const raw = fs.readFileSync(DATA_PATH, "utf-8");
-        return JSON.parse(raw) as Opportunity[];
+        const data = await kv.get<Opportunity[]>(KEY);
+        return data ?? [];
     } catch {
         return [];
     }
 }
 
-function writeAll(items: Opportunity[]): void {
-    fs.writeFileSync(DATA_PATH, JSON.stringify(items, null, 2), "utf-8");
+async function writeAll(items: Opportunity[]): Promise<void> {
+    await kv.set(KEY, items);
 }
 
-export function getOpportunities(): Opportunity[] {
+export async function getOpportunities(): Promise<Opportunity[]> {
     return readAll();
 }
 
-export function getOpportunityById(id: string): Opportunity | undefined {
-    return readAll().find((o) => o.id === id);
+export async function getOpportunityById(id: string): Promise<Opportunity | undefined> {
+    const items = await readAll();
+    return items.find((o) => o.id === id);
 }
 
-export function createOpportunity(input: OpportunityInput): Opportunity {
-    const items = readAll();
+export async function createOpportunity(input: OpportunityInput): Promise<Opportunity> {
+    const items = await readAll();
     const newItem: Opportunity = {
         ...input,
         id: Date.now().toString(),
@@ -34,26 +34,26 @@ export function createOpportunity(input: OpportunityInput): Opportunity {
         createdAt: new Date().toISOString(),
     };
     items.unshift(newItem);
-    writeAll(items);
+    await writeAll(items);
     return newItem;
 }
 
-export function updateOpportunity(
+export async function updateOpportunity(
     id: string,
     patch: Partial<Opportunity>
-): Opportunity | null {
-    const items = readAll();
+): Promise<Opportunity | null> {
+    const items = await readAll();
     const idx = items.findIndex((o) => o.id === id);
     if (idx === -1) return null;
     items[idx] = { ...items[idx], ...patch, id: items[idx].id };
-    writeAll(items);
+    await writeAll(items);
     return items[idx];
 }
 
-export function deleteOpportunity(id: string): boolean {
-    const items = readAll();
+export async function deleteOpportunity(id: string): Promise<boolean> {
+    const items = await readAll();
     const next = items.filter((o) => o.id !== id);
     if (next.length === items.length) return false;
-    writeAll(next);
+    await writeAll(next);
     return true;
 }
