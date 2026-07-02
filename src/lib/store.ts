@@ -1,11 +1,16 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import type { Opportunity, OpportunityInput } from "@/types";
+
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL!,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
 
 const KEY = "opportunities";
 
 async function readAll(): Promise<Opportunity[]> {
     try {
-        const data = await kv.get<Opportunity[]>(KEY);
+        const data = await redis.get<Opportunity[]>(KEY);
         return data ?? [];
     } catch {
         return [];
@@ -13,7 +18,7 @@ async function readAll(): Promise<Opportunity[]> {
 }
 
 async function writeAll(items: Opportunity[]): Promise<void> {
-    await kv.set(KEY, items);
+    await redis.set(KEY, items);
 }
 
 export async function getOpportunities(): Promise<Opportunity[]> {
