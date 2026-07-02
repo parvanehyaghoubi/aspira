@@ -10,7 +10,7 @@ type Params = { params: Promise<{ id: string }> };
 
 export async function GET(_req: NextRequest, { params }: Params) {
     const { id } = await params;
-    const item = getOpportunityById(id);
+    const item = await getOpportunityById(id);
     if (!item) {
         return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
@@ -21,9 +21,8 @@ export async function PUT(req: NextRequest, { params }: Params) {
     const { id } = await params;
     const body = await req.json();
 
-    // Support partial updates (e.g. status changes from the admin page)
     if (body && typeof body === "object" && "status" in body && Object.keys(body).length === 1) {
-        const updated = updateOpportunity(id, { status: body.status });
+        const updated = await updateOpportunity(id, { status: body.status });
         if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
         return NextResponse.json(updated);
     }
@@ -36,7 +35,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
         );
     }
     const { requirements, tags, ...rest } = parsed.data;
-    const updated = updateOpportunity(id, {
+    const updated = await updateOpportunity(id, {
         ...rest,
         requirements: requirements.split(",").map((r) => r.trim()).filter(Boolean),
         tags: (tags ?? "").split(",").map((t) => t.trim()).filter(Boolean),
@@ -49,7 +48,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
 
 export async function DELETE(_req: NextRequest, { params }: Params) {
     const { id } = await params;
-    const ok = deleteOpportunity(id);
+    const ok = await deleteOpportunity(id);
     if (!ok) {
         return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
