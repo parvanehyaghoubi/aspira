@@ -48,9 +48,7 @@ function LoginPageInner() {
             <h1 className="mt-4 font-display text-3xl font-semibold text-lapis-900 dark:text-sand-50">
                 {t("login_title")}
             </h1>
-            <p className="mt-2 text-xs text-lapis-500 dark:text-sand-300">
-                Demo account: try signing up first — this is a local, browser-only login for demonstration.
-            </p>
+            
             {redirectTo !== "/" && (
                 <p className="mt-2 rounded-lg bg-lapis-50 px-3 py-2 text-xs text-lapis-600 dark:bg-lapis-800 dark:text-sand-300">
                     Log in to continue to <span className="font-mono">{redirectTo}</span>
