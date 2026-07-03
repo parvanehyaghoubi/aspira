@@ -11,10 +11,17 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/context/LanguageContext";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
     const { t } = useLanguage();
     const { user, logout } = useAuth();
+    const router = useRouter();
+    function handleLogout() {
+        logout();
+        router.push("/");
+        router.refresh();
+    }
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
 
@@ -71,7 +78,7 @@ export default function Navbar() {
                     <LanguageSwitcher />
                     <ThemeToggle />
                     {user ? (
-                        <button onClick={logout} className="btn-secondary !px-4 !py-2 text-xs">
+                        <button onClick={handleLogout} className="btn-secondary !px-4 !py-2 text-xs">
                             {t("nav_logout")}
                         </button>
                     ) : (
@@ -119,7 +126,7 @@ export default function Navbar() {
                             <ThemeToggle />
                         </div>
                         {user ? (
-                            <button onClick={logout} className="btn-secondary !px-4 !py-2 text-xs">
+                            <button onClick={handleLogout} className="btn-secondary !px-4 !py-2 text-xs">
                                 {t("nav_logout")}
                             </button>
                         ) : (
