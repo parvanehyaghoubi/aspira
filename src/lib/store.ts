@@ -1,24 +1,46 @@
-import { Redis } from "@upstash/redis";
+import fs from "fs";
+import path from "path";
 import type { Opportunity, OpportunityInput } from "@/types";
 
-const redis = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL!,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
-
 const KEY = "opportunities";
+const DATA_PATH = path.join(process.cwd(), "data", "opportunities.json");
+
+const hasRedis = !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+
+async function getRedis() {
+    if (!hasRedis) return null;
+    const { Redis } = await import("@upstash/redis");
+    return new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL!,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    });
+}
 
 async function readAll(): Promise<Opportunity[]> {
+    const redis = await getRedis();
+    if (redis) {
+        try {
+            const data = await redis.get(KEY) as Opportunity[] | null;
+            return data ?? [];
+        } catch {
+            return [];
+        }
+    }
     try {
-        const data = await redis.get<Opportunity[]>(KEY);
-        return data ?? [];
+        const raw = fs.readFileSync(DATA_PATH, "utf-8");
+        return JSON.parse(raw) as Opportunity[];
     } catch {
         return [];
     }
 }
 
 async function writeAll(items: Opportunity[]): Promise<void> {
-    await redis.set(KEY, items);
+    const redis = await getRedis();
+    if (redis) {
+        await redis.set(KEY, JSON.stringify(items));
+    } else {
+        fs.writeFileSync(DATA_PATH, JSON.stringify(items, null, 2), "utf-8");
+    }
 }
 
 export async function getOpportunities(): Promise<Opportunity[]> {
@@ -43,10 +65,7 @@ export async function createOpportunity(input: OpportunityInput): Promise<Opport
     return newItem;
 }
 
-export async function updateOpportunity(
-    id: string,
-    patch: Partial<Opportunity>
-): Promise<Opportunity | null> {
+export async function updateOpportunity(id: string, patch: Partial<Opportunity>): Promise<Opportunity | null> {
     const items = await readAll();
     const idx = items.findIndex((o) => o.id === id);
     if (idx === -1) return null;

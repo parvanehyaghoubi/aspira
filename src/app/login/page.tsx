@@ -36,8 +36,12 @@ function LoginPageInner() {
 
     function onSubmit(values: AuthFormValues) {
         const err = login(values.email, values.password);
-        if (err) setError(err);
-        else router.push(redirectTo);
+        if (err) {
+            setError(err);
+        } else {
+            router.push(redirectTo);
+            router.refresh();
+        }
     }
 
     return (
