@@ -7,14 +7,15 @@ import {
     faXTwitter,
     faLinkedinIn,
     faInstagram,
+    faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 import { useLanguage } from "@/context/LanguageContext";
 
 const SOCIALS = [
-    { icon: faFacebookF, label: "Facebook", href: "https://facebook.com" },
+    { icon: faGithub, label: "GitHub", href: "https://github.com/parvanehyaghoubi" },
     { icon: faXTwitter, label: "X (Twitter)", href: "https://x.com/P_Yaghoubi" },
     { icon: faLinkedinIn, label: "LinkedIn", href: "https://www.linkedin.com/in/parvaneh-yaghoubi-54362620b" },
-    { icon: faInstagram, label: "Instagram", href: "https://instagram.com" },
+    { icon: faInstagram, label: "Instagram", href: "https://instagram.com/parvaneh__ygh/" },
 ];
 
 export default function Footer() {
