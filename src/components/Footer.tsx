@@ -72,7 +72,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="mt-8 flex flex-col gap-2 border-t border-lapis-100 pt-6 text-xs text-lapis-500 sm:flex-row sm:items-center sm:justify-between dark:border-lapis-700 dark:text-sand-300">
-                    <p>© {new Date().getFullYear()} {t("appName")}. {t("demo_data_notice")}</p>
+                    <p>© {new Date().getFullYear()} {t("appName")}. All rights reserved.</p>
                     <p>Built with Parvaneh Yaghoubi.</p>
                 </div>
             </div>
