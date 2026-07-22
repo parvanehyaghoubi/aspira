@@ -178,6 +178,3 @@ For any inquiries, please contact:
 [![linkedin Badge](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/parvaneh-yaghoubi-54362620b)
 
 
-<div align="center">
-  <sub>Made with ❤️ by <a href="https://parvaneh-yaghoubi.github.io/Portfolio/">Parvaneh</a></sub>
-</div>
