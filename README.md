@@ -44,8 +44,8 @@ https://aspira-sigma.vercel.app/
 
 ## Technologies Used
 
-- Next.js 16 (App Router, Turbopack) + TypeScript + React 19
-- React 18, Tailwind CSS
+- Next.js 16 (App Router, Turbopack) + TypeScript
+- React 19, Tailwind CSS
 - React Hook Form + Zod
 - Recharts, Framer Motion, lucide-react icons
 - jsPDF (CV builder)
