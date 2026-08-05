@@ -1,31 +1,33 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { SESSION_COOKIE, decodeSessionCookie } from "@/lib/auth-cookie";
-
-// Pages that require a logged-in user. Adjust this list to taste. For
-// example you might decide /add-opportunity should stay open to guests.
+import { NextRequest, NextResponse } from "next/server";
+import { verifyToken } from "@/lib/jwt";
 
 const PROTECTED_PATHS = ["/dashboard", "/saved", "/cv-builder", "/admin", "/add-opportunity"];
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const isProtected = PROTECTED_PATHS.some(
         (path) => pathname === path || pathname.startsWith(`${path}/`)
     );
 
-    if (!isProtected) {
-        return NextResponse.next();
-    }
+    if (!isProtected) return NextResponse.next();
 
-    const cookieValue = request.cookies.get(SESSION_COOKIE)?.value;
-    const user = decodeSessionCookie(cookieValue);
+    const token = request.cookies.get("aspira_token")?.value;
 
-    if (!user) {
+    if (!token) {
         const loginUrl = new URL("/login", request.url);
         loginUrl.searchParams.set("redirect", pathname);
         return NextResponse.redirect(loginUrl);
     }
 
-    if (pathname.startsWith("/admin") && user.role !== "admin") {
+    const payload = await verifyToken(token);
+
+    if (!payload) {
+        const loginUrl = new URL("/login", request.url);
+        loginUrl.searchParams.set("redirect", pathname);
+        return NextResponse.redirect(loginUrl);
+    }
+
+    if (pathname.startsWith("/admin") && payload.role !== "admin") {
         return NextResponse.redirect(new URL("/", request.url));
     }
 
