@@ -34,8 +34,8 @@ function SignupPageInner() {
         resolver: zodResolver(authSchema.required({ name: true })),
     });
 
-    function onSubmit(values: AuthFormValues) {
-        const err = signup(values.name ?? "", values.email, values.password);
+    async function onSubmit(values: AuthFormValues) {
+        const err = await signup(values.name ?? "", values.email, values.password);
         if (err) setError(err);
         else router.push(redirectTo);
     }
