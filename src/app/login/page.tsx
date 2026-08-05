@@ -34,8 +34,8 @@ function LoginPageInner() {
         resolver: zodResolver(authSchema.omit({ name: true })),
     });
 
-    function onSubmit(values: AuthFormValues) {
-        const err = login(values.email, values.password);
+    async function onSubmit(values: AuthFormValues) {
+        const err = await login(values.email, values.password);
         if (err) {
             setError(err);
         } else {
