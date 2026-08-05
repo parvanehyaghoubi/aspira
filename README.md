@@ -31,44 +31,83 @@ https://aspira-sigma.vercel.app/
 - Professional UI: navbar, footer, cards, buttons, forms, a modal, badges, empty/loading/error states
 
 **Bonus features implemented**
-- **Multi-language support** — English, Dari (دری), German, French, Arabic (العربية), Korean (한국어) and Japanese (日本語), with automatic right-to-left layout for Dari and Arabic
+- **Multi-language support** — English, Dari, German, French, Arabic, Korean, and Japanese. With automatic right-to-left layout for Dari and Arabic
 - **Deadline countdown & "expiring soon" badge** on every opportunity card and detail page
 - **Featured opportunities** highlighted on the home page
 - **Charts with Recharts** on the dashboard (bar + pie)
 - **Framer Motion animations** for page/card transitions and the modal
-- **Mock authentication** (sign up / log in), stored in `localStorage` for demo purposes
-- **Protected routes via Next.js Middleware** — `/dashboard`, `/saved`, `/add-opportunity`, `/cv-builder` and `/admin` require a logged-in session; logged-out visitors are redirected to `/login?redirect=...` and sent back after logging in. See "How route protection works" below.
+- **JWT-based authentication** — sign up / log in; passwords are hashed with SHA-256 + salt using the Web Crypto API before being stored in Upstash Redis; the session is stored in an **httpOnly cookie** (not localStorage)
+- **Protected routes via Next.js Middleware** — `/dashboard`, `/saved`, `/add-opportunity`, `/cv-builder` and `/admin` require a logged-in session; logged-out visitors are redirected to `/login?redirect=...` and sent back after logging in.
 - **Admin approval system** — new submissions start as `pending`; an admin account (sign up with `admin@aspira.app`) can approve or reject them from `/admin`
 - **PDF CV builder** at `/cv-builder`, generating a downloadable PDF with `jsPDF`
 - **Contact/email API route** — `/api/contact` accepts and logs messages (a stand-in for a real email provider)
 
 ## Technologies Used
 
-- Next.js 16 (App Router, Turbopack) + TypeScript
-- React 19, Tailwind CSS
-- React Hook Form + Zod
-- Recharts, Framer Motion, lucide-react icons
-- jsPDF (CV builder)
-- Next.js API routes + a JSON file as a mock database
-- React Context + localStorage (saved items, theme, language, demo auth)
+- **Framework:** Next.js 16 (App Router) + TypeScript + React 19
+- **Styling:** Tailwind CSS + Framer Motion
+- **Forms:** React Hook Form + Zod
+- **Charts:** Recharts
+- **Auth:** Custom JWT (jose) + SHA-256 password hashing (Web Crypto API)
+- **Database:** Upstash Redis (opportunities + user accounts)
+- **Deployment:** Vercel
+- **Testing:** Vitest (unit & integration) + Playwright (E2E)
 
 ## How to Run Locally
 
+### Prerequisites
+- Node.js 18+
+- A free [Upstash](https://upstash.com) account
+
+> **Why Upstash?**
+> Upstash is a free serverless Redis database. Aspira uses it to store opportunity listings and hashed user accounts. It works seamlessly with Vercel and requires no server setup.
+> Create a free account at [upstash.com](https://upstash.com), create a Redis database, and copy the URL and token from the dashboard.
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/parvanehyaghoubi/aspira.git
+   cd aspira
+   npm install
+   ```
+
+2. Create a `.env.local` file in the root directory:
+   ```
+   # Upstash Redis (for opportunities data and user accounts)
+   UPSTASH_REDIS_REST_URL=your_upstash_url_here
+   UPSTASH_REDIS_REST_TOKEN=your_upstash_token_here
+
+   # JWT Secret — generate with:
+   # node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   JWT_SECRET=your_random_secret_here
+   ```
+
+3. Generate a JWT secret:
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   ```
+   Copy the output and paste it as the value of `JWT_SECRET` in your `.env.local`.
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+   Open http://localhost:3000.
+
+### Running Tests
+
 ```bash
-git clone https://github.com/parvanehyaghoubi/aspira.git
-cd aspira
-npm install
-npm run dev
+# Unit & integration tests
+npm test
+
+# E2E tests (requires dev server running)
+npm run dev # terminal 1
+npm run test:e2e # terminal 2
 ```
 
-Then open http://localhost:3000.
-
-To create a production build:
-
-```bash
-npm run build
-npm run start
-```
+### Admin Access
 
 To get admin access in the demo, sign up at `/signup` using the email `admin@aspira.app` (any password). This account is automatically given the admin role and can review pending submissions at `/admin`.
 
@@ -148,16 +187,16 @@ To get admin access in the demo, sign up at `/signup` using the email `admin@asp
 
 ## Future Improvements
 
-- Replace the JSON file store with a real database (Postgres, MongoDB, or similar) for persistence in production
-- Replace the demo `localStorage` authentication with real authentication (e.g. NextAuth.js) and hashed passwords
 - Connect the contact form and admin-approval notifications to a real email provider (e.g. Resend, SendGrid)
 - Add pagination or infinite scroll once the number of opportunities grows
-- Add automated tests (unit tests for utils/validation, integration tests for API routes)
 - Allow organizations to manage their own posted opportunities from an account dashboard
+- AI-powered opportunity matching based on user profile
+- Mobile app (React Native)
 
 ## Important Note
 
-This project uses **demo data**. Organization names, links and details are illustrative and not real postings.
+- This project uses **demo data**. Organization names, links and details are illustrative and not real postings.
+- The authentication system uses **SHA-256 + salt** password hashing via the Web Crypto API. Passwords are stored as hashes in Upstash Redis and are never stored in localStorage or in plain text.
 
 
 ## 📝 License
