@@ -44,8 +44,8 @@ https://aspira-sigma.vercel.app/
 
 ## Technologies Used
 
-- Next.js 16 (App Router, Turbopack) + TypeScript + React 19
-- React 18, Tailwind CSS
+- Next.js 16 (App Router, Turbopack) + TypeScript
+- React 19, Tailwind CSS
 - React Hook Form + Zod
 - Recharts, Framer Motion, lucide-react icons
 - jsPDF (CV builder)
@@ -173,11 +173,8 @@ For any inquiries, please contact:
 ## Links
 
 ### Parvaneh Yaghoubi
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://parvaneh-yaghoubi.github.io/Portfolio/)
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://portfolio-three-flax-hqnvbkqkq6.vercel.app/)
 
 [![linkedin Badge](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/parvaneh-yaghoubi-54362620b)
 
 
-<div align="center">
-  <sub>Made with ❤️ by <a href="https://parvaneh-yaghoubi.github.io/Portfolio/">Parvaneh</a></sub>
-</div>
