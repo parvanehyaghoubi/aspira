@@ -39,7 +39,7 @@ export type ContactFormValues = z.infer<typeof contactSchema>;
 export const authSchema = z.object({
     name: z.string().min(2, "Name is required").optional(),
     email: z.string().email("Enter a valid email"),
-    password: z.string().min(4, "Password must be at least 4 characters"),
+    password: z.string().min(4, "Password must be at least 6 characters"),
 });
 
 export type AuthFormValues = z.infer<typeof authSchema>;
