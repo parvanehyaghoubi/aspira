@@ -8,89 +8,68 @@ import {
     type ReactNode,
 } from "react";
 import type { AuthUser } from "@/types";
-import { setSessionCookie, clearSessionCookie } from "@/lib/auth-cookie";
-
-interface StoredUser extends AuthUser {
-    password: string;
-}
 
 interface AuthContextValue {
     user: AuthUser | null;
-    signup: (name: string, email: string, password: string) => string | null;
-    login: (email: string, password: string) => string | null;
-    logout: () => void;
+    loading: boolean;
+    signup: (name: string, email: string, password: string) => Promise<string | null>;
+    login: (email: string, password: string) => Promise<string | null>;
+    logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
-const USERS_KEY = "aspira-users";
-const SESSION_KEY = "aspira-session";
-const ADMIN_EMAIL = "admin@aspira.app";
-
-function readUsers(): StoredUser[] {
-    try {
-        return JSON.parse(window.localStorage.getItem(USERS_KEY) ?? "[]");
-    } catch {
-        return [];
-    }
-}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<AuthUser | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        try {
-            const raw = window.localStorage.getItem(SESSION_KEY);
-            if (raw) {
-                const session = JSON.parse(raw);
-                setUser(session);
-                setSessionCookie(session);
-            }
-        } catch {
-            setUser(null);
-        }
+        fetch("/api/auth/me")
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data) => { if (data?.user) setUser(data.user); })
+            .catch(() => {})
+            .finally(() => setLoading(false));
     }, []);
 
-    function signup(name: string, email: string, password: string) {
-        const users = readUsers();
-        if (users.some((u) => u.email === email)) {
-            return "An account with this email already exists.";
+    async function signup(name: string, email: string, password: string): Promise<string | null> {
+        try {
+            const res = await fetch("/api/auth/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, password }),
+            });
+            const data = await res.json();
+            if (!res.ok) return data.error ?? "Signup failed.";
+            setUser({ name, email, role: data.role ?? "user" });
+            return null;
+        } catch {
+            return "Something went wrong. Please try again.";
         }
-        const role = email.toLowerCase() === ADMIN_EMAIL ? "admin" : "user";
-        const newUser: StoredUser = { name, email, password, role };
-        users.push(newUser);
-        window.localStorage.setItem(USERS_KEY, JSON.stringify(users));
-        const session: AuthUser = { name, email, role };
-        window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-        setSessionCookie(session);
-        setUser(session);
-        return null;
     }
 
-    function login(email: string, password: string) {
-        const users = readUsers();
-        const found = users.find(
-            (u) => u.email === email && u.password === password
-        );
-        if (!found) return "Invalid email or password.";
-        const session: AuthUser = {
-            name: found.name,
-            email: found.email,
-            role: found.role,
-        };
-        window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-        setSessionCookie(session);
-        setUser(session);
-        return null;
+    async function login(email: string, password: string): Promise<string | null> {
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+            const data = await res.json();
+            if (!res.ok) return data.error ?? "Login failed.";
+            setUser({ name: data.name, email, role: data.role ?? "user" });
+            return null;
+        } catch {
+            return "Something went wrong. Please try again.";
+        }
     }
 
-    function logout() {
-        window.localStorage.removeItem(SESSION_KEY);
-        clearSessionCookie();
+    async function logout(): Promise<void> {
+        await fetch("/api/auth/logout", { method: "POST" });
         setUser(null);
     }
 
     return (
-        <AuthContext.Provider value={{ user, signup, login, logout }}>
+        <AuthContext.Provider value={{ user, loading, signup, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
